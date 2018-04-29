@@ -54,3 +54,7 @@ Methods to try out:
  * Physics:
     * Time discrete
     * Event based
+ * Render:
+    * 2D canvas element
+    * Divs (hint: border-radius 50% )
+    * Web-gl, flat or 3d, but still 2d physics.
