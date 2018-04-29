@@ -5,6 +5,71 @@
     <title>Bouncing ball</title>
 </head>
 <body>
+<canvas
+    id="world"
+    width="640"
+    height="480"
+    style="
+    border: 1px solid black
+    "
+>
+</canvas>
+<script>
+    const WIDTH = 640
+    const HEIGHT = 480
+    let colorIndex = 0
+    function drawBall(x, y) {
+        let ctx = document
+            .getElementById('world')
+            .getContext('2d')
+        // ctx.clearRect(0, 0, WIDTH, HEIGHT)
+        ctx.fillStyle = "rgba(0,0,0,0.2)"
+        ctx.fillRect(0, 0, WIDTH, HEIGHT)
+        let colors = [
+            'blue',
+            'yellow',
+            'green',
+            'red',
+            'orange',
+            'purple',
+            'cyan'
+        ]
+        //let colorIndex = Math.floor(randomBetween(0, colors.length))
+        colorIndex = (colorIndex + 1) % colors.length
+        ctx.fillStyle = colors[colorIndex]
+        ctx.strokeStyle = 'black'
+        ctx.beginPath()
+        ctx.arc(x, y, 25, 0, Math.PI * 2)
+        ctx.fill()
+        //ctx.stroke()
+    }
 
+    const randomBetween = (start, stop) =>
+        Math.random() * (stop - start) + start
+    let x = Math.round(randomBetween(25, WIDTH - 25))
+    let y = Math.round(randomBetween(25, HEIGHT - 25))
+    let d = randomBetween(1000, 1000)
+    let angle = randomBetween(0, Math.PI * 2)
+    let dx = d * Math.cos(angle)
+    let dy = d * Math.sin(angle)
+    let render = last => t => {
+        if (last) {
+            let s = (t - last) / 1000
+            if (
+                (x + dx * s) < 25 ||
+                (x + dx * s) > (WIDTH - 25)
+            ) dx = - dx
+            if (
+                (y + dy * s) < 25 ||
+                (y + dy * s) > (HEIGHT - 25)
+            ) dy = - dy
+            x = x + dx * s
+            y = y + dy * s
+        }
+        drawBall(x, y)
+        requestAnimationFrame(render(t))
+    }
+    requestAnimationFrame(render())
+</script>
 </body>
 </html>
