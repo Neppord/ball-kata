@@ -64,5 +64,6 @@ Methods to try out:
     * Event based
  * Render:
     * 2D canvas element
+    * SVG
     * Divs (hint: border-radius 50% )
     * Web-gl, flat or 3d, but still 2d physics.
