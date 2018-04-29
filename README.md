@@ -18,6 +18,14 @@ Create a 2D bouncing ball in the browser using javascript.
 |________________________________|
 ```
 
+Start feedbackloop:
+```
+$ npm install
+$ npm start
+```
+
+and then open `http://localhost:8080/index.html` in a web-browser. It will reload the page when you save the file.
+
 Some example constraints:
 
  * The ball should:

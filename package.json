@@ -1,0 +1,8 @@
+{
+  "scripts":{
+    "start": "autoreload-server"
+  },
+  "dependencies": {
+    "simple-autoreload-server": "^0.2.7"
+  }
+}
