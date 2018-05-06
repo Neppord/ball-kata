@@ -3,8 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <title>Bouncing ball</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        svg {
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-
+    <svg width="640" height="480">
+        <text id="fps" x="10" y="15"
+        >fps</text>
+        <rect
+            id="wall"
+            width="640"
+            height="480"
+            stroke="black"
+            fill="none"
+        ></rect>
+        <circle
+            id="ball"
+            r="25"
+            cx="100"
+            cy="150"
+            fill="blue"
+        ></circle>
+    </svg>
+    <script>
+        const WIDTH = 640;
+        const HEIGHT = 480;
+        const R = 25;
+        const BALL = document
+            .getElementById('ball')
+        const tick = (x, y, dx, dy, lastT, ball) => t => {
+            let diffT = t - lastT
+            if (diffT> 30) {
+                const tdx = dx * diffT / 1000
+                const tdy = dy * diffT / 1000
+                const fps = (1000 / diffT)
+                    .toPrecision(4)
+                document
+                    .getElementById('fps')
+                    .innerHTML = fps
+                ball.setAttribute('cx', x + "")
+                ball.setAttribute('cy', y + "")
+                let ndx, ndy;
+                if (x + R >= WIDTH) {
+                    ndx = -Math.abs(dx)
+                } else if (x <= R) {
+                    ndx = Math.abs(dx)
+                } else {
+                    ndx = dx
+                }
+                if (y + R >= HEIGHT) {
+                    ndy = -Math.abs(dy)
+                } else if (y <= R) {
+                    ndy = Math.abs(dy)
+                } else {
+                    ndy = dy
+                }
+                requestAnimationFrame(tick(
+                    x + tdx,
+                    y + tdy,
+                    ndx, ndy,
+                    t,
+                    ball
+                ))
+            } else {
+                requestAnimationFrame(tick(
+                    x, y, dx, dy, lastT, ball
+                ))
+            }
+        }
+        const randInt = i => Math.round(
+            Math.random() * i
+        )
+        const randRange = (start, stop) =>
+            randInt(stop - start) + start
+        const SPEED = Math.random() * R * 2 + R * 10
+        const ANGLE = Math.random() * Math.PI * 2
+        requestAnimationFrame(tick(
+            randRange(R, WIDTH - R),
+            randRange(R, HEIGHT - R),
+            Math.cos(ANGLE) * SPEED,
+            Math.sin(ANGLE) * SPEED,
+            0,
+            BALL
+        ))
+    </script>
 </body>
 </html>
